@@ -25,7 +25,7 @@ app.get("/search", async (c) => {
       url: UPSTASH_REDIS_REST_URL,
     });
 
-    const query = c.req.query("q");
+    const query = c.req.query("q")?.toUpperCase();
 
     if (!query) {
       return c.json({ message: "Invalid search query" }, { status: 400 });
@@ -35,7 +35,7 @@ app.get("/search", async (c) => {
     const rank = await redis.zrank("terms", query);
 
     if (rank !== null && rank !== undefined) {
-      const temp = await redis.zrange<string[]>("terms", rank, rank + 100);
+      const temp = await redis.zrange<string[]>("terms", rank, rank + 200);
 
       for (const el of temp) {
         if (!el.startsWith(query)) {

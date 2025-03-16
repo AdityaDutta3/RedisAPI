@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div>
       <input
-        className="bg-white text-black"
+        className="bg-white text-black text-zinc-900"
         type="text"
         value={input}
         onChange={(e) => {
